@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.VacancyController">
+    <!-- Верхняя панель для кнопок -->
+    <top>
+        <ToolBar>
+            <Button text="Добавить вакансию" fx:id="btnAddVacancy"/>
+            <Button text="Редактировать вакансию" fx:id="btnEditVacancy"/>
+            <Button text="Удалить вакансию" fx:id="btnDeleteVacancy"/>
+        </ToolBar>
+    </top>
+
+    <!-- Основная панель с таблицей вакансий -->
+    <center>
+        <TableView fx:id="vacancyTable">
+            <!-- Столбцы таблицы -->
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colTitle" text="Название вакансии" prefWidth="200">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="title"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colDescription" text="Описание" prefWidth="300">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="description"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colSalary" text="Зарплата" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="salary"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colManager" text="Менеджер" prefWidth="200">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="managerName"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <!-- Включение возможности выбора строки в таблице -->
+<!--            <selectionModel>-->
+<!--                <TableView.SelectionModel fx:id="selectionModel"/>-->
+<!--            </selectionModel>-->
+        </TableView>
+    </center>
+</BorderPane>

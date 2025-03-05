@@ -1,12 +1,20 @@
-package com.example;
+package vacancy_manager.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.Vacancy;
+import vacancy_manager.models.Manager;
+import vacancy_manager.models.Vacancy;
+import vacancy_manager.repos.VacancyRepo;
 
-public class EditVacancyController {
+import java.io.IOException;
 
+public class EditVacancyController implements ManageSelector{
+
+    public Button selectManagerButton;
     @FXML
     private TextField titleField;
 
@@ -69,8 +77,8 @@ public class EditVacancyController {
             vacancy.setDescription(description);
             vacancy.setSalary(salary);
             vacancy.setManagerName(manager);
-
-
+            vacanciesController.updateVacancyInTable(vacancy);
+            VacancyRepo.updateVacancy(vacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {
             showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");
@@ -88,5 +96,36 @@ public class EditVacancyController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleSelectManagerButton() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("select_manager.fxml"));
+            VBox page  = loader.load();
+
+            // Create a new stage for the manager list window
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Выбор менеджера");
+
+            // Set up the controller for the manager list
+            ManagerSelectionController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setAddVacancyController(this);
+
+            // Show the manager list window
+            dialogStage.setScene(new Scene(page));
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void selectManager(Manager manager) {
+        this.managerField.setText(manager.toString());
     }
 }

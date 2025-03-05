@@ -1,4 +1,4 @@
-package com.example;
+package vacancy_manager.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,16 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Vacancy;
+import vacancy_manager.models.Vacancy;
+import vacancy_manager.repos.VacancyRepo;
 
 public class VacancyController {
 
     @FXML private TableView<Vacancy> vacancyTable;
-    @FXML private TableColumn<Vacancy, Integer> colId;
     @FXML
     private TableColumn<Vacancy, String> colTitle;
     @FXML private TableColumn<Vacancy, String> colDescription;
@@ -39,18 +38,14 @@ public class VacancyController {
     @FXML
     public void initialize() {
         // Initialize the columns with PropertyValueFactory
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
         colManager.setCellValueFactory(new PropertyValueFactory<>("managerName"));
 
         // Sample data
-        vacancyList = FXCollections.observableArrayList(
-                new Vacancy(1, "Java Developer", "Develop Java applications", 60000,  "John Doe"),
-                new Vacancy(2, "Software Engineer", "Build software solutions", 75000,  "Jane Smith"),
-                new Vacancy(3, "UI/UX Designer", "Design user interfaces", 55000,  "Alice Brown")
-        );
+//        vacancyList = (ObservableList<Vacancy>) VacancyRepo.getAllVacancies();
+        vacancyList = FXCollections.observableList(VacancyRepo.getAllVacancies());
 
         // Set the data into the TableView
         vacancyTable.setItems(vacancyList);
@@ -85,7 +80,7 @@ public class VacancyController {
             // Show the dialog and wait for it to close
             dialogStage.showAndWait();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно добавления вакансии.");
         }
     }
@@ -127,6 +122,14 @@ public class VacancyController {
             showAlert("Выберите вакансию", "Пожалуйста, выберите вакансию для редактирования.");
         }
     }
+
+    public void updateVacancyInTable(Vacancy updatedVacancy) {
+        int selectedIndex = vacancyTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            vacancyList.set(selectedIndex, updatedVacancy);
+        }
+    }
+
 
     // Method to delete a selected vacancy
     private void deleteVacancy() {

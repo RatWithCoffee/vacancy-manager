@@ -1,10 +1,11 @@
-module com.example.demo3 {
+module vacancy_manager{
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires java.sql;
 
-    exports com.example;
-    exports models;
-    opens com.example to javafx.fxml;
+    exports vacancy_manager.controllers;
+    exports vacancy_manager.models;
+    opens vacancy_manager.controllers to javafx.fxml;
 }

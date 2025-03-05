@@ -1,11 +1,19 @@
-package com.example;
+package vacancy_manager.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.Vacancy;
+import vacancy_manager.models.Manager;
+import vacancy_manager.models.Vacancy;
+import vacancy_manager.repos.VacancyRepo;
 
-public class AddVacancyController {
+import java.io.IOException;
+
+public class AddVacancyController implements ManageSelector{
 
     @FXML
     private TextField titleField;
@@ -20,12 +28,16 @@ public class AddVacancyController {
     @FXML
     private TextField managerField;
 
+    private int managerId;
+
     @FXML
     private Button addButton;
 
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private Button selectManagerButton;
     private Stage dialogStage;
     private boolean okClicked = false;
 
@@ -40,6 +52,7 @@ public class AddVacancyController {
         this.vacancyController = vacancyControllerController;
     }
 
+
     // Method to handle the "Добавить вакансию" button
     @FXML
     private void handleAddVacancy() {
@@ -47,9 +60,9 @@ public class AddVacancyController {
         String title = titleField.getText();
         String description = descriptionArea.getText();
         String salaryText = salaryField.getText();
-        String manager = managerField.getText();
+        String managerName = managerField.getText();
 
-        if (title.isEmpty() || description.isEmpty() || salaryText.isEmpty()  || manager.isEmpty()) {
+        if (title.isEmpty() || description.isEmpty() || salaryText.isEmpty()  || managerName.isEmpty()) {
             showAlert("Ошибка", "Пожалуйста, заполните все поля.");
             return;
         }
@@ -59,15 +72,16 @@ public class AddVacancyController {
 
             // Create a new Vacancy
             Vacancy newVacancy = new Vacancy(
-                    vacancyController.getVacancyList().size() + 1, // Just a placeholder for the ID
                     title,
                     description,
                     salary,
-                    manager
+                    managerId,
+                    managerName
             );
 
             // Add the new vacancy to the main table
             vacancyController.addVacancyToTable(newVacancy);
+            VacancyRepo.addVacancy(newVacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {
             showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");
@@ -87,5 +101,35 @@ public class AddVacancyController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleSelectManagerButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("select_manager.fxml"));
+            VBox page  = loader.load();
+
+            // Create a new stage for the manager list window
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Выбор менеджера");
+
+            // Set up the controller for the manager list
+            ManagerSelectionController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setAddVacancyController(this);
+
+            // Show the manager list window
+            dialogStage.setScene(new Scene(page));
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void selectManager(Manager manager) {
+        this.managerId = manager.getId();
+        this.managerField.setText(manager.toString());
     }
 }

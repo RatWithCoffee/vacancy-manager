@@ -1,14 +1,15 @@
-package models;
+package vacancy_manager.models;
 
 import javafx.beans.property.*;
 
 public class Vacancy {
 
-    private final IntegerProperty id;
+    private  IntegerProperty id;
     private final StringProperty title;
     private final StringProperty description;
     private final DoubleProperty salary;
-    private final StringProperty managerName; // This should be a StringProperty
+    private StringProperty managerName;
+    private int managerId;
 
     public Vacancy(int id, String title, String description, double salary, String managerName) {
         this.id = new SimpleIntegerProperty(id);
@@ -16,6 +17,30 @@ public class Vacancy {
         this.description = new SimpleStringProperty(description);
         this.salary = new SimpleDoubleProperty(salary);
         this.managerName = new SimpleStringProperty(managerName); // Initialize correctly
+    }
+
+    public Vacancy(String title, String description, double salary, int managerId) {
+        this.title = new SimpleStringProperty(title);
+        this.description = new SimpleStringProperty(description);
+        this.salary = new SimpleDoubleProperty(salary);
+        this.managerId = managerId; // Initialize correctly
+    }
+
+    public Vacancy(int id, String title, String description, double salary, int managerId, String name) {
+        this(title, description,  salary,  managerId,  name);
+        this.id = new SimpleIntegerProperty(id);
+    }
+
+    public Vacancy(String title, String description, double salary, int managerId, String name) {
+        this.title = new SimpleStringProperty(title);
+        this.description = new SimpleStringProperty(description);
+        this.salary = new SimpleDoubleProperty(salary);
+        this.managerId = managerId;
+        this.managerName = new SimpleStringProperty(name);
+    }
+
+    public int getManagerId() {
+        return managerId;
     }
 
     // Getter for managerName (JavaBeans convention)

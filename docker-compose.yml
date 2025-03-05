@@ -1,9 +1,8 @@
 ---
 name: job-vacancies
 services:
-  postgres-receivers:
+  postgres:
     image: postgres:15
-    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: rat
@@ -13,11 +12,10 @@ services:
       - 5434:5432
     volumes:
       - vw-back-volume:/var/lib/postgresql/data
-      - ./db_init.sql:/docker-entrypoint-initdb.d
+      - ./db_init.sql:/docker-entrypoint-initdb.d/init.sql
     hostname: postgres
 
   adminer:
-    container_name: adminer
     image: adminer
     restart: always
     ports:

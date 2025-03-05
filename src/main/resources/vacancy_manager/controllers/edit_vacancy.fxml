@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AddVacancyController" vgap="10" hgap="10">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.EditVacancyController" vgap="10" hgap="10">
     <Label text="Название вакансии:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
@@ -13,10 +13,9 @@
     <Label text="Зарплата:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <TextField fx:id="salaryField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-    <Label text="Менеджер:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-    <TextField fx:id="managerField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <TextField fx:id="managerField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Button text="Выбрать менеджера" fx:id="selectManagerButton" GridPane.rowIndex="4" GridPane.columnIndex="1" onAction="#handleSelectManagerButton"/>
 
-    <Button text="Добавить вакансию" fx:id="addButton" GridPane.rowIndex="5" GridPane.columnIndex="1"
-            onAction="#handleAddVacancy"/>
+    <Button text="Сохранить изменения" fx:id="saveButton" GridPane.rowIndex="5" GridPane.columnIndex="1" onAction="#handleSaveChanges"/>
     <Button text="Отмена" fx:id="cancelButton" GridPane.rowIndex="5" GridPane.columnIndex="0" onAction="#handleCancel"/>
 </GridPane>

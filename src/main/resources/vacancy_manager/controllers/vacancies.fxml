@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.VacancyController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.VacancyController">
     <!-- Верхняя панель для кнопок -->
     <top>
         <ToolBar>
@@ -20,11 +20,6 @@
         <TableView fx:id="vacancyTable">
             <!-- Столбцы таблицы -->
             <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="100">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id"/>
-                    </cellValueFactory>
-                </TableColumn>
                 <TableColumn fx:id="colTitle" text="Название вакансии" prefWidth="200">
                     <cellValueFactory>
                         <PropertyValueFactory property="title"/>

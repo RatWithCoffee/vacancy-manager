@@ -2,10 +2,7 @@ package vacancy_manager.repos;
 
 import vacancy_manager.models.Manager;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +24,11 @@ public class ManagerRepo {
                 String patronymic = resultSet.getString("patronymic");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
+                System.out.println(patronymic);
 
                 Manager manager = new Manager(id, firstName, lastName, patronymic, email, phone);
                 managers.add(manager);
+                System.out.println(manager.getFirstName());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,4 +36,57 @@ public class ManagerRepo {
 
         return managers;
     }
+
+    public static void addManager(Manager manager) {
+        String query = "INSERT INTO manager (first_name, last_name, patronymic, email, phone) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection connection = DbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, manager.getFirstName());
+            preparedStatement.setString(2, manager.getLastName());
+            preparedStatement.setString(3, manager.getPatronymic());
+            preparedStatement.setString(4, manager.getEmail());
+            preparedStatement.setString(5, manager.getPhone());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateManager(Manager manager) {
+        String query = "UPDATE manager SET first_name = ?, last_name = ?, patronymic = ?, email = ?, phone = ? WHERE id = ?";
+
+        try (Connection connection = DbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, manager.getFirstName());
+            preparedStatement.setString(2, manager.getLastName());
+            preparedStatement.setString(3, manager.getPatronymic());
+            preparedStatement.setString(4, manager.getEmail());
+            preparedStatement.setString(5, manager.getPhone());
+            preparedStatement.setInt(6, manager.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteManager(int id) {
+        String query = "DELETE FROM manager WHERE id = ?";
+
+        try (Connection connection = DbManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

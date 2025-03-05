@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vacancy_manager.controllers.managers.ManagerListController">
+    <top>
+        <ToolBar>
+            <Button text="Добавить менеджера" onAction="#handleAddManager"/>
+            <Button text="Изменить менеджера" onAction="#handleEditManager"/>
+            <Button text="Удалить менеджера" onAction="#handleDeleteManager"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="managerTable">
+            <columns>
+                <TableColumn fx:id="firstNameColumn" text="Имя" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="lastNameColumn" text="Фамилия" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="patronymicColumn" text="Отчество" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="patronymic"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="emailColumn" text="Email" prefWidth="200">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="email"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="phoneColumn" text="Телефон" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="phone"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

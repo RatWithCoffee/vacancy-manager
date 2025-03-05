@@ -1,4 +1,4 @@
-package vacancy_manager.controllers;
+package vacancy_manager.controllers.vacancies;
 
 import vacancy_manager.models.Manager;
 

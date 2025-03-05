@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.VacancyController">
-    <!-- Верхняя панель для кнопок -->
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.vacancies.VacancyListController">
     <top>
         <ToolBar>
             <Button text="Добавить вакансию" fx:id="btnAddVacancy"/>
@@ -15,10 +14,8 @@
         </ToolBar>
     </top>
 
-    <!-- Основная панель с таблицей вакансий -->
     <center>
         <TableView fx:id="vacancyTable">
-            <!-- Столбцы таблицы -->
             <columns>
                 <TableColumn fx:id="colTitle" text="Название вакансии" prefWidth="200">
                     <cellValueFactory>
@@ -41,10 +38,6 @@
                     </cellValueFactory>
                 </TableColumn>
             </columns>
-            <!-- Включение возможности выбора строки в таблице -->
-<!--            <selectionModel>-->
-<!--                <TableView.SelectionModel fx:id="selectionModel"/>-->
-<!--            </selectionModel>-->
         </TableView>
     </center>
 </BorderPane>

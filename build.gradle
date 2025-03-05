@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'vacancy_manager.controllers'
-    mainClass = 'vacancy_manager.controllers.HelloApplication'
+    mainClass = 'vacancy_manager.controllers.Main'
 }
 
 javafx {

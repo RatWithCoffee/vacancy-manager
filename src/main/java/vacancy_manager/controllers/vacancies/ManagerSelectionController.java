@@ -1,10 +1,11 @@
-package vacancy_manager.controllers;
+package vacancy_manager.controllers.vacancies;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import vacancy_manager.models.Manager;
 import vacancy_manager.repos.ManagerRepo;
+import vacancy_manager.utils.AlertUtils;
 
 import java.util.List;
 
@@ -34,12 +35,10 @@ public class ManagerSelectionController {
     private void handleSelectManager() {
         Manager selectedManager = managerListView.getSelectionModel().getSelectedItem();
         if (selectedManager != null) {
-            selectedManager.print();
-
             addVacancyController.selectManager(selectedManager);
             dialogStage.close();
         } else {
-            showAlert("Ошибка", "Пожалуйста, выберите менеджера.");
+            AlertUtils.showAlert("Ошибка", "Пожалуйста, выберите менеджера.");
         }
     }
 
@@ -48,11 +47,4 @@ public class ManagerSelectionController {
         dialogStage.close();
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

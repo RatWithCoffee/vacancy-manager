@@ -24,10 +24,11 @@ public class ManagerRepo {
                 int id = resultSet.getInt("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
+                String patronymic = resultSet.getString("patronymic");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
 
-                Manager manager = new Manager(id, firstName, lastName, email, phone);
+                Manager manager = new Manager(id, firstName, lastName, patronymic, email, phone);
                 managers.add(manager);
             }
         } catch (SQLException e) {

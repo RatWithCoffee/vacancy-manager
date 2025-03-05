@@ -1,18 +1,16 @@
-package vacancy_manager.controllers;
+package vacancy_manager.controllers.vacancies;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vacancy_manager.models.Manager;
 import vacancy_manager.models.Vacancy;
 import vacancy_manager.repos.VacancyRepo;
+import vacancy_manager.utils.AlertUtils;
 
-import java.io.IOException;
-
-public class EditVacancyController implements ManageSelector{
+public class EditVacancyController implements ManageSelector {
 
     public Button selectManagerButton;
     @FXML
@@ -37,8 +35,7 @@ public class EditVacancyController implements ManageSelector{
     private Stage dialogStage;
     private Vacancy vacancy;
 
-    // Reference to the main controller
-    private VacancyController vacanciesController;
+    private VacancyListController vacanciesController;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -52,27 +49,24 @@ public class EditVacancyController implements ManageSelector{
         managerField.setText(vacancy.getManagerName());
     }
 
-    public void setVacanciesController(VacancyController vacanciesController) {
+    public void setVacanciesController(VacancyListController vacanciesController) {
         this.vacanciesController = vacanciesController;
     }
 
     @FXML
     private void handleSaveChanges() {
-        // Get the values from the form fields
         String title = titleField.getText();
         String description = descriptionArea.getText();
         String salaryText = salaryField.getText();
         String manager = managerField.getText();
 
         if (title.isEmpty() || description.isEmpty() || salaryText.isEmpty() || manager.isEmpty()) {
-            showAlert("Ошибка", "Пожалуйста, заполните все поля.");
+            AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все поля.");
             return;
         }
 
         try {
             double salary = Double.parseDouble(salaryText);
-
-            // Update the Vacancy object with the new values
             vacancy.setTitle(title);
             vacancy.setDescription(description);
             vacancy.setSalary(salary);
@@ -81,7 +75,7 @@ public class EditVacancyController implements ManageSelector{
             VacancyRepo.updateVacancy(vacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {
-            showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");
+            AlertUtils.showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");
         }
     }
 
@@ -90,37 +84,10 @@ public class EditVacancyController implements ManageSelector{
         dialogStage.close();
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
     @FXML
     private void handleSelectManagerButton() {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("select_manager.fxml"));
-            VBox page  = loader.load();
-
-            // Create a new stage for the manager list window
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Выбор менеджера");
-
-            // Set up the controller for the manager list
-            ManagerSelectionController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setAddVacancyController(this);
-
-            // Show the manager list window
-            dialogStage.setScene(new Scene(page));
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ManagerSelectionCreator.createManagerSelectionWindow(this);
     }
 
 

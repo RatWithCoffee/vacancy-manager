@@ -8,6 +8,7 @@ CREATE TABLE manager (
                           id SERIAL PRIMARY KEY,                          -- Уникальный идентификатор менеджера
                           first_name VARCHAR(100) NOT NULL,               -- Имя менеджера
                           last_name VARCHAR(100) NOT NULL,                -- Фамилия менеджера
+                          patronymic VARCHAR(100) NOT NULL,
                           email VARCHAR(255) UNIQUE NOT NULL,             -- Электронная почта менеджера
                           phone VARCHAR(20)                              -- Телефон менеджера
 );
@@ -30,12 +31,11 @@ CREATE TABLE candidate (
                             vacancy_id INT REFERENCES vacancy(id) ON DELETE CASCADE
 );
 
--- Вставка данных в таблицу manager
-INSERT INTO manager (first_name, last_name, email, phone) VALUES
-                                                              ('Иван', 'Иванов', 'ivanov@example.com', '+7 (900) 123-45-67'),
-                                                              ('Мария', 'Петрова', 'petrova@example.com', '+7 (900) 234-56-78'),
-                                                              ('Алексей', 'Сидоров', 'sidorov@example.com', '+7 (900) 345-67-89'),
-                                                              ('Екатерина', 'Михайлова', 'mihailova@example.com', '+7 (900) 456-78-90');
+INSERT INTO manager (first_name, last_name, patronymic, email, phone) VALUES
+                                                                          ('Иван', 'Иванов', 'Иванович', 'ivanov@example.com', '+7 (900) 123-45-67'),
+                                                                          ('Мария', 'Петрова', 'Петровна', 'petrova@example.com', '+7 (900) 234-56-78'),
+                                                                          ('Алексей', 'Сидоров', 'Алексеевич', 'sidorov@example.com', '+7 (900) 345-67-89'),
+                                                                          ('Екатерина', 'Михайлова', 'Викторовна', 'mihailova@example.com', '+7 (900) 456-78-90');
 
 -- Вставка данных в таблицу vacancy
 INSERT INTO vacancy (title, description, salary, manager_id) VALUES

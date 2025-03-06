@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.candidates.CandidateListController">
+    <top>
+        <Label fx:id="vacancyTitleLabel" text="Кандидаты для вакансии: " />
+    </top>
+    <center>
+        <TableView fx:id="candidateTable">
+            <columns>
+                <TableColumn fx:id="colFirstName" text="Имя" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colLastName" text="Фамилия" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="200">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="email"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colPhone" text="Телефон" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="phone"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

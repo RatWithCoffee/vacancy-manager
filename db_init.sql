@@ -25,6 +25,7 @@ CREATE TABLE candidate (
                             id SERIAL PRIMARY KEY,                          -- Уникальный идентификатор соискателя
                             first_name VARCHAR(100) NOT NULL,               -- Имя соискателя
                             last_name VARCHAR(100) NOT NULL,                -- Фамилия соискателя
+                            patronymic VARCHAR(100) NOT NULL,                -- Фамилия соискателя
                             email VARCHAR(255) UNIQUE NOT NULL,             -- Электронная почта соискателя
                             phone VARCHAR(20),                              -- Телефон соискателя
                             cv TEXT,                                        -- Ссылка на резюме соискателя
@@ -43,4 +44,12 @@ INSERT INTO vacancy (title, description, salary, manager_id) VALUES
                                                                  ('Системный администратор', 'Настройка и обслуживание серверного оборудования, настройка сетевой инфраструктуры.', 60000.00, 2),
                                                                  ('Маркетолог', 'Разработка и внедрение маркетинговых стратегий, анализ рынка и конкурентов.', 70000.00, 3),
                                                                  ('HR-менеджер', 'Подбор персонала, проведение собеседований, участие в разработке внутренней политики компании.', 55000.00, 4);
+
+INSERT INTO candidate (first_name, last_name, patronymic, email, phone, cv, vacancy_id) VALUES
+                                                                                            ('Дмитрий', 'Кузнецов', 'Сергеевич', 'kuznetsov@example.com', '+7 (900) 567-89-01', 'https://example.com/resume1.pdf', 1),
+                                                                                            ('Ольга', 'Смирнова', 'Владимировна', 'smirnova@example.com', '+7 (900) 678-90-12', 'https://example.com/resume2.pdf', 2),
+                                                                                            ('Петр', 'Ильин', 'Дмитриевич', 'iljin@example.com', '+7 (900) 789-01-23', 'https://example.com/resume3.pdf', 3),
+                                                                                            ('Анна', 'Васильева', 'Михайловна', 'vasilieva@example.com', '+7 (900) 890-12-34', 'https://example.com/resume4.pdf', 4);
+
+
 

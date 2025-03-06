@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.collections.ObservableList?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.util.Callback?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.vacancies.VacancyListController">
     <top>
         <ToolBar>
             <Button text="Добавить вакансию" fx:id="btnAddVacancy"/>
             <Button text="Редактировать вакансию" fx:id="btnEditVacancy"/>
             <Button text="Удалить вакансию" fx:id="btnDeleteVacancy"/>
+            <Button text="Посмотреть кандидатов на вакансию" fx:id="btnViewCandidates"/>
+            <Button text="В главное меню" fx:id="btnMainMenu"/>
         </ToolBar>
     </top>
 
@@ -37,6 +38,7 @@
                         <PropertyValueFactory property="managerName"/>
                     </cellValueFactory>
                 </TableColumn>
+
             </columns>
         </TableView>
     </center>

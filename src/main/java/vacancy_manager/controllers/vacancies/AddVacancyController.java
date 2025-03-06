@@ -1,17 +1,14 @@
 package vacancy_manager.controllers.vacancies;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vacancy_manager.models.Manager;
 import vacancy_manager.models.Vacancy;
 import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
-
-import java.io.IOException;
 
 public class AddVacancyController implements ManageSelector {
 

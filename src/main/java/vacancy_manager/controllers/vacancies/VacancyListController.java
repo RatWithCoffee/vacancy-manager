@@ -12,12 +12,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import vacancy_manager.controllers.candidates.CandidateListController;
+import vacancy_manager.models.Candidate;
 import vacancy_manager.models.Vacancy;
+import vacancy_manager.repos.CandidateRepo;
 import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
 
+import java.io.IOException;
+import java.util.List;
+
 public class VacancyListController {
 
+    @FXML
+    public Button btnViewCandidates;
+    public Button btnMainMenu;
     @FXML private TableView<Vacancy> vacancyTable;
     @FXML
     private TableColumn<Vacancy, String> colTitle;
@@ -45,6 +54,8 @@ public class VacancyListController {
         btnAddVacancy.setOnAction(event -> handleAddVacancy());
         btnEditVacancy.setOnAction(event -> handleEditVacancy());
         btnDeleteVacancy.setOnAction(event -> handleDeleteVacancy());
+        btnViewCandidates.setOnAction(event -> handleViewCandidates());
+
     }
 
 
@@ -124,5 +135,52 @@ public class VacancyListController {
         }
     }
 
+    @FXML
+    private void handleViewCandidates() {
+        Vacancy selectedVacancy = vacancyTable.getSelectionModel().getSelectedItem();
+
+        if (selectedVacancy == null) {
+            AlertUtils.showAlert("Ошибка", "Пожалуйста, выберите вакансию.");
+            return;
+        }
+
+        // Fetch the list of candidates for the selected vacancy
+        List<Candidate> candidates = CandidateRepo.getCandidatesByVacancyId(selectedVacancy.getId());
+
+        if (candidates.isEmpty()) {
+            AlertUtils.showAlert("Ошибка", "Для этой вакансии нет кандидатов.");
+            return;
+        }
+
+        // Open a new window showing the list of candidates
+        showCandidatesWindow(candidates, selectedVacancy);
+    }
+
+    private void showCandidatesWindow(List<Candidate> candidates, Vacancy selectedVacancy) {
+        try {
+            // Создаем новое окно
+            Stage candidateStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(CandidateListController.class.getResource("candidate_list.fxml"));
+
+            // Загружаем FXML файл
+            Scene scene = new Scene(loader.load());
+
+            // Получаем контроллер для окна кандидатов
+            CandidateListController candidateListController = loader.getController();
+
+            // Передаем список кандидатов в контроллер
+            candidateListController.setCandidates(candidates);
+            candidateListController.setVacancyTitle(selectedVacancy.getTitle());
+
+            // Отображаем окно
+            candidateStage.setTitle("Кандидаты для вакансии: " + selectedVacancy.getTitle());
+            candidateStage.setScene(scene);
+            candidateStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertUtils.showAlert("Ошибка", "Не удалось открыть окно кандидатов.");
+        }
+    }
 
 }

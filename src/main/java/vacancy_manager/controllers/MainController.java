@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vacancy_manager.controllers.managers.ManagerListController;
 import vacancy_manager.controllers.vacancies.VacancyListController;
@@ -27,6 +25,9 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(VacancyListController.class.getResource("vacancy_list.fxml"));
             BorderPane page = loader.load();
 
+            VacancyListController controller = loader.getController();
+            controller.setStage(stage);
+
             Scene vacancyScene = new Scene(page, 1500, 600);
             stage.setScene(vacancyScene);
         } catch (IOException e) {
@@ -40,10 +41,29 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(ManagerListController.class.getResource("manager_list.fxml"));
             BorderPane page = loader.load();
 
+            ManagerListController controller = loader.getController();
+            controller.setStage(stage);
+
             Scene managerScene = new Scene(page, 1500, 600);
             stage.setScene(managerScene);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showMainMenu(Stage stage) {
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("main_page.fxml"));
+            MainController controller = new MainController(stage);
+            fxmlLoader.setController(controller);
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Vacancy manager");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

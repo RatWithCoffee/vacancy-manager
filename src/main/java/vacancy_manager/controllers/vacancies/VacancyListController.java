@@ -10,8 +10,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import vacancy_manager.controllers.MainController;
 import vacancy_manager.controllers.candidates.CandidateListController;
 import vacancy_manager.models.Candidate;
 import vacancy_manager.models.Vacancy;
@@ -19,6 +21,7 @@ import vacancy_manager.repos.CandidateRepo;
 import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class VacancyListController {
 
     private ObservableList<Vacancy> vacancyList;
 
+    private Stage stage;
+
     @FXML
     public void initialize() {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -55,9 +60,17 @@ public class VacancyListController {
         btnEditVacancy.setOnAction(event -> handleEditVacancy());
         btnDeleteVacancy.setOnAction(event -> handleDeleteVacancy());
         btnViewCandidates.setOnAction(event -> handleViewCandidates());
-
+        btnMainMenu.setOnAction(event -> openMainMenu());
     }
 
+    @FXML
+    private void openMainMenu() {
+        try {
+            MainController.showMainMenu(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleAddVacancy() {
@@ -83,6 +96,10 @@ public class VacancyListController {
             e.printStackTrace();
             AlertUtils.showAlert("Ошибка", "Не удалось открыть окно добавления вакансии.");
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public void addVacancyToTable(Vacancy vacancy) {

@@ -5,18 +5,21 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import vacancy_manager.controllers.MainController;
 import vacancy_manager.models.Manager;
 import vacancy_manager.repos.ManagerRepo;
 import vacancy_manager.utils.AlertUtils;
 
 public class ManagerListController {
 
+    public Button btnMainMenu;
     @FXML
     private TableView<Manager> managerTable;
 
@@ -37,6 +40,8 @@ public class ManagerListController {
 
     private ObservableList<Manager> managerList;
 
+    private Stage stage;
+
     public void initialize() {
 
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -49,6 +54,10 @@ public class ManagerListController {
         System.out.println(managerList.size());
         managerTable.setItems(managerList);
 
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -133,4 +142,13 @@ public class ManagerListController {
         }
     }
 
+    // TODO
+    @FXML
+    private void openMainMenu() {
+        try {
+            MainController.showMainMenu(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

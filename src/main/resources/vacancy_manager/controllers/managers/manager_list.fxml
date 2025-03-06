@@ -10,6 +10,8 @@
             <Button text="Добавить менеджера" onAction="#handleAddManager"/>
             <Button text="Изменить менеджера" onAction="#handleEditManager"/>
             <Button text="Удалить менеджера" onAction="#handleDeleteManager"/>
+            <Button text="В главное меню" fx:id="btnMainMenu" onAction="#openMainMenu"/>
+
         </ToolBar>
     </top>
 

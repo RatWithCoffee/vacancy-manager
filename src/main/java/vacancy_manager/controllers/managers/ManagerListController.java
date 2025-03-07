@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,7 +52,6 @@ public class ManagerListController {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
         managerList = FXCollections.observableArrayList(ManagerRepo.getAll());
-        System.out.println(managerList.size());
         managerTable.setItems(managerList);
 
     }
@@ -65,10 +65,10 @@ public class ManagerListController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("add_manager.fxml"));
-            VBox page = loader.load();
+            GridPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Добавить вакансию");
+            dialogStage.setTitle("Добавить менеджера");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(managerTable.getScene().getWindow());
 
@@ -130,7 +130,6 @@ public class ManagerListController {
         }
     }
 
-    // Метод для удаления менеджера
     @FXML
     private void handleDeleteManager() {
         Manager selectedManager = managerTable.getSelectionModel().getSelectedItem();
@@ -142,7 +141,6 @@ public class ManagerListController {
         }
     }
 
-    // TODO
     @FXML
     private void openMainMenu() {
         try {

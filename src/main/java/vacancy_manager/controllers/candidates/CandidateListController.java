@@ -30,8 +30,8 @@ public class CandidateListController {
         candidateTable.getItems().setAll(candidates);
     }
 
-    // Метод для установки заголовка вакансии
-    public void setVacancyTitle(String title) {
-        vacancyTitleLabel.setText("Кандидаты для вакансии: " + title);
-    }
+//    // Метод для установки заголовка вакансии
+//    public void setVacancyTitle(String title) {
+//        vacancyTitleLabel.setText("Кандидаты для вакансии: " + title);
+//    }
 }

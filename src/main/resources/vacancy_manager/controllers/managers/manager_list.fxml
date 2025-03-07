@@ -16,7 +16,7 @@
     </top>
 
     <center>
-        <TableView fx:id="managerTable">
+        <TableView fx:id="managerTable" >
             <columns>
                 <TableColumn fx:id="firstNameColumn" text="Имя" prefWidth="150">
                     <cellValueFactory>

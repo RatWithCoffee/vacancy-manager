@@ -2,28 +2,24 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.vacancies.AddVacancyController"
-          vgap="15" hgap="15" padding="20">
-    <Label text="Название вакансии:" GridPane.rowIndex="0" GridPane.columnIndex="0" textFill="BLACK"/>
-    <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"
-               promptText="Введите название вакансии"/>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.managers.AddManagerController"
+          vgap="10" hgap="10" style="-fx-padding: 20 20 20 20;">
+    <Label text="Имя" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-    <Label text="Описание вакансии:" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="BLACK"/>
-    <TextArea fx:id="descriptionArea" GridPane.rowIndex="1" GridPane.columnIndex="1"
-              promptText="Введите описание вакансии" prefRowCount="4" wrapText="true"/>
+    <Label text="Фамилия" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-    <Label text="Зарплата:" GridPane.rowIndex="2" GridPane.columnIndex="0" textFill="BLACK"/>
-    <TextField fx:id="salaryField" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Введите зарплату"/>
+    <Label text="Отчество" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="patronymicField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-    <Label text="Менеджер:" GridPane.rowIndex="3" GridPane.columnIndex="0" textFill="BLACK"/>
-    <TextField fx:id="managerField" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="Выберите менеджера"/>
+    <Label text="Email" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <TextField fx:id="emailField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-    <Button text="Выбрать менеджера" fx:id="selectManagerButton" GridPane.rowIndex="4" GridPane.columnIndex="1"
-            onAction="#handleSelectManagerButton"/>
+    <Label text="Телефон" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="phoneField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-    <Button text="Добавить вакансию" fx:id="addButton" GridPane.rowIndex="5" GridPane.columnIndex="1"
-            onAction="#handleAddVacancy"/>
-
-    <Button text="Отмена" fx:id="cancelButton" GridPane.rowIndex="5" GridPane.columnIndex="0"
-            onAction="#handleCancel"/>
+    <Button text="Сохранить" onAction="#handleSave" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <Button text="Отменить" onAction="#handleCancel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 </GridPane>
+

@@ -157,7 +157,7 @@ public class VacancyListController {
         Vacancy selectedVacancy = vacancyTable.getSelectionModel().getSelectedItem();
 
         if (selectedVacancy == null) {
-            AlertUtils.showAlert("Ошибка", "Пожалуйста, выберите вакансию.");
+            AlertUtils.showAlert("", "Пожалуйста, выберите вакансию.");
             return;
         }
 
@@ -165,7 +165,7 @@ public class VacancyListController {
         List<Candidate> candidates = CandidateRepo.getCandidatesByVacancyId(selectedVacancy.getId());
 
         if (candidates.isEmpty()) {
-            AlertUtils.showAlert("Ошибка", "Для этой вакансии нет кандидатов.");
+            AlertUtils.showAlert("", "Для этой вакансии нет кандидатов.");
             return;
         }
 
@@ -187,7 +187,7 @@ public class VacancyListController {
 
             // Передаем список кандидатов в контроллер
             candidateListController.setCandidates(candidates);
-            candidateListController.setVacancyTitle(selectedVacancy.getTitle());
+//            candidateListController.setVacancyTitle(selectedVacancy.getTitle());
 
             // Отображаем окно
             candidateStage.setTitle("Кандидаты для вакансии: " + selectedVacancy.getTitle());

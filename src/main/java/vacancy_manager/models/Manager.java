@@ -55,7 +55,7 @@ public class Manager {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + " " + patronymic;
+        return firstName.get() + " " + lastName.get() + " " + patronymic.get();
     }
 
     public String getFirstName() {

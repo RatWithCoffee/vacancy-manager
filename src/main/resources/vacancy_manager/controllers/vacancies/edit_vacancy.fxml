@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.vacancies.EditVacancyController" vgap="10" hgap="10">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.vacancies.EditVacancyController" vgap="10" hgap="10" style="-fx-padding: 20 20 20 20;">
     <Label text="Название вакансии:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
@@ -13,7 +13,7 @@
     <Label text="Зарплата:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <TextField fx:id="salaryField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-    <TextField fx:id="managerField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <TextField fx:id="managerField" disable="true"  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     <Button text="Выбрать менеджера" fx:id="selectManagerButton" GridPane.rowIndex="4" GridPane.columnIndex="1" onAction="#handleSelectManagerButton"/>
 
     <Button text="Сохранить изменения" fx:id="saveButton" GridPane.rowIndex="5" GridPane.columnIndex="1" onAction="#handleSaveChanges"/>

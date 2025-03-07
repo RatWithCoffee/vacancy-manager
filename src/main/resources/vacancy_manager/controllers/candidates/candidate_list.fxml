@@ -4,9 +4,6 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.candidates.CandidateListController">
-    <top>
-        <Label fx:id="vacancyTitleLabel" text="Кандидаты для вакансии: " />
-    </top>
     <center>
         <TableView fx:id="candidateTable">
             <columns>

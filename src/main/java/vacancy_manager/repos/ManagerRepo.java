@@ -24,11 +24,9 @@ public class ManagerRepo {
                 String patronymic = resultSet.getString("patronymic");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
-                System.out.println(patronymic);
 
                 Manager manager = new Manager(id, firstName, lastName, patronymic, email, phone);
                 managers.add(manager);
-                System.out.println(manager.getFirstName());
             }
         } catch (SQLException e) {
             e.printStackTrace();

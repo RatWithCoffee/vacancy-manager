@@ -29,6 +29,7 @@ public class MainController {
             controller.setStage(stage);
 
             Scene vacancyScene = new Scene(page, 1500, 600);
+            stage.setTitle("Список вакансий");
             stage.setScene(vacancyScene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,6 +46,7 @@ public class MainController {
             controller.setStage(stage);
 
             Scene managerScene = new Scene(page, 1500, 600);
+            stage.setTitle("Список менеджеров");
             stage.setScene(managerScene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,8 +59,8 @@ public class MainController {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("main_page.fxml"));
             MainController controller = new MainController(stage);
             fxmlLoader.setController(controller);
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Vacancy manager");
+            Scene scene = new Scene(fxmlLoader.load(), 400, 200);
+            stage.setTitle("Менеджер вакансий");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

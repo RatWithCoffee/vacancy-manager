@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="20" alignment="CENTER" >
-    <Button text="Вакансии" onAction="#handleVacanciesButton"/>
-    <Button text="Менеджеры" onAction="#handleManagersButton"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="20" alignment="CENTER">
+    <Button text="Вакансии" onAction="#handleVacanciesButton" prefWidth="200"/>
+    <Button text="Менеджеры" onAction="#handleManagersButton" prefWidth="200"/>
 </VBox>

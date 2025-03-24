@@ -36,16 +36,13 @@ public class Manager {
     private StringProperty email;
     private StringProperty phone;
 
-    public Manager(String firstName, String lastName, String patronymic, String email, String phone) {
+
+    public Manager(int id, String firstName, String lastName, String patronymic, String email, String phone) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.patronymic = new SimpleStringProperty(patronymic);
         this.email = new SimpleStringProperty(email);
         this.phone = new SimpleStringProperty(phone);
-    }
-
-    public Manager(int id, String firstName, String lastName, String patronymic, String email, String phone) {
-        this(firstName, lastName, patronymic, email, phone);
         this.id = id;
     }
 
@@ -55,6 +52,9 @@ public class Manager {
 
     @Override
     public String toString() {
+        if (firstName == null) {
+            return "";
+        }
         return firstName.get() + " " + lastName.get() + " " + patronymic.get();
     }
 

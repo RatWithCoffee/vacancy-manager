@@ -32,6 +32,8 @@ public class EditVacancyController implements ManageSelector {
     @FXML
     private Button cancelButton;
 
+    private Integer managerId;
+
     private Stage dialogStage;
     private Vacancy vacancy;
 
@@ -71,6 +73,7 @@ public class EditVacancyController implements ManageSelector {
             vacancy.setDescription(description);
             vacancy.setSalary(salary);
             vacancy.setManagerName(manager);
+            vacancy.setManagerId(managerId);
             vacanciesController.updateVacancyInTable(vacancy);
             VacancyRepo.updateVacancy(vacancy);
             dialogStage.close();
@@ -93,6 +96,7 @@ public class EditVacancyController implements ManageSelector {
 
     @Override
     public void selectManager(Manager manager) {
+        this.managerId = manager.getId();
         this.managerField.setText(manager.toString());
     }
 }

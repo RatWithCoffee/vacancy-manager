@@ -4,42 +4,25 @@ import javafx.beans.property.*;
 
 public class Vacancy {
 
-    private  IntegerProperty id;
+    private final IntegerProperty id;
     private final StringProperty title;
     private final StringProperty description;
     private final DoubleProperty salary;
-    private StringProperty managerName;
-    private int managerId;
+    private final StringProperty managerName;
+    private Integer managerId;
 
-    public Vacancy(int id, String title, String description, double salary, String managerName) {
-        this.id = new SimpleIntegerProperty(id);
-        this.title = new SimpleStringProperty(title);
-        this.description = new SimpleStringProperty(description);
-        this.salary = new SimpleDoubleProperty(salary);
-        this.managerName = new SimpleStringProperty(managerName); // Initialize correctly
-    }
-
-    public Vacancy(String title, String description, double salary, int managerId) {
-        this.title = new SimpleStringProperty(title);
-        this.description = new SimpleStringProperty(description);
-        this.salary = new SimpleDoubleProperty(salary);
-        this.managerId = managerId; // Initialize correctly
-    }
 
     public Vacancy(int id, String title, String description, double salary, int managerId, String name) {
-        this(title, description,  salary,  managerId,  name);
-        this.id = new SimpleIntegerProperty(id);
-    }
-
-    public Vacancy(String title, String description, double salary, int managerId, String name) {
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
         this.salary = new SimpleDoubleProperty(salary);
         this.managerId = managerId;
         this.managerName = new SimpleStringProperty(name);
+        this.id = new SimpleIntegerProperty(id);
     }
 
-    public int getManagerId() {
+
+    public Integer getManagerId() {
         return managerId;
     }
 
@@ -90,5 +73,8 @@ public class Vacancy {
 
     public void setManagerName(String managerName) {
         this.managerName.set(managerName);
+    }
+    public void setManagerId(Integer id) {
+        this.managerId = id;
     }
 }

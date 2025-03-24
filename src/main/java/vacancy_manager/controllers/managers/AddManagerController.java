@@ -51,11 +51,13 @@ public class AddManagerController {
         }
 
         // Создаем нового менеджера и добавляем его в репозиторий
-        Manager newManager = new Manager(firstName, lastName, patronymic, email, phone);
-        ManagerRepo.addManager(newManager); // Вам нужно будет добавить метод добавления менеджера в репозиторий
+        Manager newManager = new Manager(-1, firstName, lastName, patronymic, email, phone);
+        int id = ManagerRepo.addManager(newManager);
+        newManager.setId(id);
         managerListController.addManagerToTable(newManager);
         stage.close(); // Закрываем окно после добавления менеджера
     }
+
 
     // Обработчик отмены
     @FXML

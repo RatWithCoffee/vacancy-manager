@@ -1,5 +1,6 @@
 package vacancy_manager.controllers.vacancies;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import vacancy_manager.controllers.MainController;
@@ -21,7 +21,6 @@ import vacancy_manager.repos.CandidateRepo;
 import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,7 +49,13 @@ public class VacancyListController {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colManager.setCellValueFactory(new PropertyValueFactory<>("managerName"));
+        colManager.setCellValueFactory(cellData -> {
+            String firstName = cellData.getValue().getManagerName();
+            System.out.println(firstName != null);
+            System.out.println(firstName);
+            return new SimpleStringProperty(firstName != null ? firstName : "");
+        });
+
 
 
         vacancyList = FXCollections.observableList(VacancyRepo.getAllVacancies());

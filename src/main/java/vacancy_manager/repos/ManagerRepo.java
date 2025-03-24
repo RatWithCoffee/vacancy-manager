@@ -35,8 +35,9 @@ public class ManagerRepo {
         return managers;
     }
 
-    public static void addManager(Manager manager) {
-        String query = "INSERT INTO manager (first_name, last_name, patronymic, email, phone) VALUES (?, ?, ?, ?, ?)";
+    public static int addManager(Manager manager) {
+        String query = "INSERT INTO manager (first_name, last_name, patronymic, email, phone) VALUES (?, ?, ?, ?, ?) RETURNING id";
+        int generatedId = -1;  // Значение по умолчанию, если что-то пойдет не так
 
         try (Connection connection = DbManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -47,10 +48,16 @@ public class ManagerRepo {
             preparedStatement.setString(4, manager.getEmail());
             preparedStatement.setString(5, manager.getPhone());
 
-            preparedStatement.executeUpdate();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    generatedId = resultSet.getInt("id");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return generatedId;
     }
 
     public static void updateManager(Manager manager) {

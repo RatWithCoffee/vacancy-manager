@@ -62,7 +62,7 @@ public class AddVacancyController implements ManageSelector {
 
         try {
             double salary = Double.parseDouble(salaryText);
-            Vacancy newVacancy = new Vacancy(
+            Vacancy newVacancy = new Vacancy(-1,
                     title,
                     description,
                     salary,
@@ -70,8 +70,10 @@ public class AddVacancyController implements ManageSelector {
                     managerName
             );
 
+            int newId = VacancyRepo.addVacancy(newVacancy);
+            newVacancy.setId(newId);
             vacancyListController.addVacancyToTable(newVacancy);
-            VacancyRepo.addVacancy(newVacancy);
+
             dialogStage.close();
         } catch (NumberFormatException e) {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");

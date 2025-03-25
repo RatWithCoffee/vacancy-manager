@@ -53,6 +53,24 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleStatisticsButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vacancy_statistic.fxml"));
+            BorderPane page = loader.load();
+
+            VacancyStatisticsController controller = loader.getController();
+            controller.setStage(stage);
+            controller.loadData(); // Load and display the data
+
+            Scene statisticsScene = new Scene(page, 1500, 600);
+            stage.setTitle("Статистика по вакансиям");
+            stage.setScene(statisticsScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void showMainMenu(Stage stage) {
 
         try {

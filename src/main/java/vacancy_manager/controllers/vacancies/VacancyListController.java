@@ -192,6 +192,7 @@ public class VacancyListController {
 
             // Передаем список кандидатов в контроллер
             candidateListController.setCandidates(candidates);
+            candidateListController.setVacancyInfo(selectedVacancy);
 //            candidateListController.setVacancyTitle(selectedVacancy.getTitle());
 
             // Отображаем окно

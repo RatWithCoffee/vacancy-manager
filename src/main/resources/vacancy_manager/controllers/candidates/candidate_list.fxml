@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="vacancy_manager.controllers.candidates.CandidateListController">
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <Label fx:id="vacancyTitleLabel" style="-fx-font-size: 16pt; -fx-font-weight: bold;"/>
+            <Button text="Импорт из CSV" onAction="#handleImportFromCsv" style="-fx-font-size: 12pt;"/>
+        </HBox>
+    </top>
     <center>
         <TableView fx:id="candidateTable">
             <columns>

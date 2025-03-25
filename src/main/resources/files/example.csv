@@ -1,0 +1,6 @@
+Имя,Фамилия,Email,Телефон,Отчество,Ссылка на резюме
+Иван,Петров,ivan.petrov@example.com,+79001234567,Иванович,https://example.com/cv/ivan_petrov.pdf
+Мария,Сидорова,maria.sidorova@example.com,+79011234567,Сергеевна,https://example.com/cv/maria_sidorova.pdf
+Алексей,Кузнецов,alex.kuznetsov@example.com,+79021234567,,https://example.com/cv/alex_kuznetsov.pdf
+Екатерина,Смирнова,ekaterina.smirnova@example.com,+79031234567,Алексеевна,
+Дмитрий,Васильев,dmitry.vasiliev@example.com,+79041234567,,

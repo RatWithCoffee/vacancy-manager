@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VacancyRepo {
 
@@ -123,6 +125,50 @@ public class VacancyRepo {
             return new Vacancy(id, title, description, salary, managerId, " ");
         }
         return new Vacancy(id, title, description, salary, managerId, firstName + " " + lastName);
+    }
+
+
+    public static List<Map<String, Object>> getVacanciesWithSalaries() throws SQLException {
+        List<Map<String, Object>> vacancies = new ArrayList<>();
+
+        String query = "SELECT title, salary FROM vacancy ORDER BY salary DESC";
+
+        try (Connection connection = DbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Map<String, Object> vacancy = new HashMap<>();
+                vacancy.put("title", resultSet.getString("title"));
+                vacancy.put("salary", resultSet.getDouble("salary"));
+                vacancies.add(vacancy);
+            }
+        }
+
+        return vacancies;
+    }
+
+    public static Map<String, Integer> getVacancyCountByManager() throws SQLException {
+        Map<String, Integer> managerVacancies = new HashMap<>();
+
+        String query = "SELECT m.first_name || ' ' || m.last_name AS manager_name, COUNT(v.id) AS vacancy_count " +
+                "FROM vacancy v " +
+                "JOIN manager m ON v.manager_id = m.id " +
+                "GROUP BY m.first_name, m.last_name";
+
+        try (Connection connection = DbManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                managerVacancies.put(
+                        resultSet.getString("manager_name"),
+                        resultSet.getInt("vacancy_count")
+                );
+            }
+        }
+
+        return managerVacancies;
     }
 
 

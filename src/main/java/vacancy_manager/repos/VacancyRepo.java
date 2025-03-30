@@ -148,13 +148,10 @@ public class VacancyRepo {
         return vacancies;
     }
 
-    public static Map<String, Integer> getVacancyCountByManager() throws SQLException {
+    public static Map<String, Integer> getNumberOfCandidatesToVac() throws SQLException {
         Map<String, Integer> managerVacancies = new HashMap<>();
 
-        String query = "SELECT m.first_name || ' ' || m.last_name AS manager_name, COUNT(v.id) AS vacancy_count " +
-                "FROM vacancy v " +
-                "JOIN manager m ON v.manager_id = m.id " +
-                "GROUP BY m.first_name, m.last_name";
+        String query = "SELECT v.title, COUNT(*) AS candidates_count FROM vacancy v JOIN candidate c ON v.id = c.vacancy_id GROUP BY(v.title)";
 
         try (Connection connection = DbManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -162,8 +159,8 @@ public class VacancyRepo {
 
             while (resultSet.next()) {
                 managerVacancies.put(
-                        resultSet.getString("manager_name"),
-                        resultSet.getInt("vacancy_count")
+                        resultSet.getString("title"),
+                        resultSet.getInt("candidates_count")
                 );
             }
         }

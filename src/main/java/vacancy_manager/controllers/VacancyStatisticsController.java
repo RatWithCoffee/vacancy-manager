@@ -61,13 +61,13 @@ public class VacancyStatisticsController {
     private void loadManagerDistributionData() throws SQLException {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        Map<String, Integer> managerVacancies = VacancyRepo.getVacancyCountByManager();
+        Map<String, Integer> managerVacancies = VacancyRepo.getNumberOfCandidatesToVac();
         for (Map.Entry<String, Integer> entry : managerVacancies.entrySet()) {
             pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
         }
 
         managerPieChart.setData(pieChartData);
-        managerPieChart.setTitle("Вакансии по менеджерам");
+        managerPieChart.setTitle("Кандидаты по вакансиям");
     }
 
     @FXML

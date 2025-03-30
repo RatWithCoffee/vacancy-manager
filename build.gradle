@@ -24,11 +24,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-tasks.withType(JavaExec) {
-    // Для RMI Security Manager
-    systemProperty 'java.security.policy', file('config/security.policy').absolutePath
-    systemProperty 'java.security.manager', 'java.lang.SecurityManager'
-}
 
 application {
     mainModule = 'vacancy_manager.controllers'

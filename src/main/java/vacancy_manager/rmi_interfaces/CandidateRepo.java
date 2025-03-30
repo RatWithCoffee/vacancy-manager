@@ -1,4 +1,4 @@
-package rmi_interfaces;
+package vacancy_manager.rmi_interfaces;
 
 import vacancy_manager.models.Candidate;
 

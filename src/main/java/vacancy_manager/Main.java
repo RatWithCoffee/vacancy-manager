@@ -1,10 +1,8 @@
-package vacancy_manager.controllers;
+package vacancy_manager;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import vacancy_manager.controllers.vacancies.VacancyListController;
+import vacancy_manager.controllers.MainController;
 
 import java.io.IOException;
 
@@ -12,9 +10,6 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
         MainController.showMainMenu(stage);
     }
 

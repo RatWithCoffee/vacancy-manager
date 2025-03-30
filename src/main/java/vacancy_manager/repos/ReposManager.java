@@ -1,8 +1,8 @@
-package repos;
+package vacancy_manager.repos;
 
-import rmi_interfaces.CandidateRepo;
-import rmi_interfaces.ManagerRepo;
-import rmi_interfaces.VacancyRepo;
+import vacancy_manager.rmi_interfaces.CandidateRepo;
+import vacancy_manager.rmi_interfaces.ManagerRepo;
+import vacancy_manager.rmi_interfaces.VacancyRepo;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

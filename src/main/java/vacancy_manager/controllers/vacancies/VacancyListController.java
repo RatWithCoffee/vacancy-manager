@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import repos.ReposManager;
+import vacancy_manager.repos.ReposManager;
 import vacancy_manager.controllers.MainController;
 import vacancy_manager.controllers.candidates.CandidateListController;
 import vacancy_manager.models.Candidate;

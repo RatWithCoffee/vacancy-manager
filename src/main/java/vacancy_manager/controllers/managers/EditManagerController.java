@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import repos.ReposManager;
+import vacancy_manager.repos.ReposManager;
 import vacancy_manager.models.Manager;
 import vacancy_manager.utils.AlertUtils;
 

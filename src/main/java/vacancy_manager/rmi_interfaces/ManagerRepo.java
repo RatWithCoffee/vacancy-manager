@@ -1,11 +1,9 @@
-package rmi_interfaces;
+package vacancy_manager.rmi_interfaces;
 
 import vacancy_manager.models.Manager;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ManagerRepo  extends Remote {

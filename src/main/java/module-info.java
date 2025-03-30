@@ -12,4 +12,6 @@ module vacancy_manager{
     opens vacancy_manager.controllers to javafx.fxml;
     exports vacancy_manager.controllers.vacancies;
     opens vacancy_manager.controllers.vacancies to javafx.fxml;
+    exports vacancy_manager;
+    opens vacancy_manager to javafx.fxml;
 }

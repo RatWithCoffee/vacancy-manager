@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.stage.Stage;
-import repos.ReposManager;
+import vacancy_manager.repos.ReposManager;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;

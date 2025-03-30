@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.models.Manager;
-import vacancy_manager.repos.ManagerRepo;
 import vacancy_manager.utils.AlertUtils;
 
 public class EditManagerController {
@@ -74,7 +74,7 @@ public class EditManagerController {
             manager.setPhone(phone);
 
             managerListController.updateManagerInTable(manager);
-            ManagerRepo.updateManager(manager);
+            ReposManager.getManagerRepo().updateManager(manager);
             dialogStage.close();
         } catch (Exception e) {
             e.printStackTrace();

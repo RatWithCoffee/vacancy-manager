@@ -3,14 +3,11 @@ package vacancy_manager.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.stage.Stage;
-import vacancy_manager.repos.VacancyRepo;
+import repos.ReposManager;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +29,12 @@ public class VacancyStatisticsController {
         } catch (SQLException e) {
             e.printStackTrace();
             // You might want to show an error dialog here
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void loadSalaryData() throws SQLException {
+    private void loadSalaryData() throws SQLException, RemoteException {
         // Initialize axes
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Вакансия");
@@ -47,7 +46,7 @@ public class VacancyStatisticsController {
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        List<Map<String, Object>> vacancies = VacancyRepo.getVacanciesWithSalaries();
+        List<Map<String, Object>> vacancies = ReposManager.getVacancyRepo().getVacanciesWithSalaries();
         System.out.println(vacancies.size());
         for (Map<String, Object> vacancy : vacancies) {
             String title = (String) vacancy.get("title");
@@ -58,10 +57,10 @@ public class VacancyStatisticsController {
         salaryBarChart.getData().add(series);
     }
 
-    private void loadManagerDistributionData() throws SQLException {
+    private void loadManagerDistributionData() throws SQLException, RemoteException {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        Map<String, Integer> managerVacancies = VacancyRepo.getNumberOfCandidatesToVac();
+        Map<String, Integer> managerVacancies = ReposManager.getVacancyRepo().getNumberOfCandidatesToVac();
         for (Map.Entry<String, Integer> entry : managerVacancies.entrySet()) {
             pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
         }

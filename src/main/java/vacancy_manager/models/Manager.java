@@ -1,65 +1,78 @@
 package vacancy_manager.models;
 
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import java.io.*;
 
-public class Manager {
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic.set(patronymic);
-    }
-
-    public void setEmail(String email) {
-        this.email.set(email);
-    }
-
-    public void setPhone(String phone) {
-        this.phone.set(phone);
-    }
+public class Manager implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int id;
-    private StringProperty firstName;
-    private StringProperty lastName;
-    private StringProperty patronymic;
-    private StringProperty email;
-    private StringProperty phone;
+    private transient StringProperty firstName;
+    private transient StringProperty lastName;
+    private transient StringProperty patronymic;
+    private transient StringProperty email;
+    private transient StringProperty phone;
 
-
-    public Manager(int id, String firstName, String lastName, String patronymic, String email, String phone) {
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
-        this.patronymic = new SimpleStringProperty(patronymic);
-        this.email = new SimpleStringProperty(email);
-        this.phone = new SimpleStringProperty(phone);
-        this.id = id;
+    public Manager() {
+        initProperties();
     }
 
+    public Manager(int id, String firstName, String lastName,
+                   String patronymic, String email, String phone) {
+        this.id = id;
+        initProperties();
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPatronymic(patronymic);
+        setEmail(email);
+        setPhone(phone);
+    }
+
+    private void initProperties() {
+        this.firstName = new SimpleStringProperty();
+        this.lastName = new SimpleStringProperty();
+        this.patronymic = new SimpleStringProperty();
+        this.email = new SimpleStringProperty();
+        this.phone = new SimpleStringProperty();
+    }
+
+    // Custom serialization
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeInt(id);
+        out.writeUTF(getFirstName());
+        out.writeUTF(getLastName());
+        out.writeUTF(getPatronymic());
+        out.writeUTF(getEmail());
+        out.writeUTF(getPhone());
+    }
+
+    // Custom deserialization
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        id = in.readInt();
+        initProperties();
+        setFirstName(in.readUTF());
+        setLastName(in.readUTF());
+        setPatronymic(in.readUTF());
+        setEmail(in.readUTF());
+        setPhone(in.readUTF());
+    }
+
+    // Getters and setters
     public int getId() {
         return id;
     }
 
-    @Override
-    public String toString() {
-        if (firstName == null) {
-            return "";
-        }
-        return firstName.get() + " " + lastName.get() + " " + patronymic.get();
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
         return firstName.get();
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
 
     public StringProperty firstNameProperty() {
@@ -70,12 +83,20 @@ public class Manager {
         return lastName.get();
     }
 
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
+    }
+
     public StringProperty lastNameProperty() {
         return lastName;
     }
 
     public String getPatronymic() {
         return patronymic.get();
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic.set(patronymic);
     }
 
     public StringProperty patronymicProperty() {
@@ -86,6 +107,10 @@ public class Manager {
         return email.get();
     }
 
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
     public StringProperty emailProperty() {
         return email;
     }
@@ -94,7 +119,19 @@ public class Manager {
         return phone.get();
     }
 
+    public void setPhone(String phone) {
+        this.phone.set(phone);
+    }
+
     public StringProperty phoneProperty() {
         return phone;
+    }
+
+    @Override
+    public String toString() {
+        if (firstName == null || lastName == null || patronymic == null) {
+            return "";
+        }
+        return getFirstName() + " " + getLastName() + " " + getPatronymic();
     }
 }

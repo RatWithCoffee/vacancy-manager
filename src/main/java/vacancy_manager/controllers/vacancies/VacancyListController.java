@@ -13,15 +13,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.controllers.MainController;
 import vacancy_manager.controllers.candidates.CandidateListController;
 import vacancy_manager.models.Candidate;
 import vacancy_manager.models.Vacancy;
-import vacancy_manager.repos.CandidateRepo;
-import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class VacancyListController {
@@ -45,7 +45,7 @@ public class VacancyListController {
     private Stage stage;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws RemoteException {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
@@ -58,13 +58,25 @@ public class VacancyListController {
 
 
 
-        vacancyList = FXCollections.observableList(VacancyRepo.getAllVacancies());
+        vacancyList = FXCollections.observableList(ReposManager.getVacancyRepo().getAllVacancies());
 
         vacancyTable.setItems(vacancyList);
         btnAddVacancy.setOnAction(event -> handleAddVacancy());
         btnEditVacancy.setOnAction(event -> handleEditVacancy());
-        btnDeleteVacancy.setOnAction(event -> handleDeleteVacancy());
-        btnViewCandidates.setOnAction(event -> handleViewCandidates());
+        btnDeleteVacancy.setOnAction(event -> {
+            try {
+                handleDeleteVacancy();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        btnViewCandidates.setOnAction(event -> {
+            try {
+                handleViewCandidates();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
         btnMainMenu.setOnAction(event -> openMainMenu());
     }
 
@@ -147,10 +159,10 @@ public class VacancyListController {
     }
 
 
-    private void handleDeleteVacancy() {
+    private void handleDeleteVacancy() throws RemoteException {
         Vacancy selectedVacancy = vacancyTable.getSelectionModel().getSelectedItem();
         if (selectedVacancy != null) {
-            VacancyRepo.deleteVacancy(selectedVacancy.getId());
+            ReposManager.getVacancyRepo().deleteVacancy(selectedVacancy.getId());
             vacancyList.remove(selectedVacancy);
         } else {
             AlertUtils.showAlert("Выберите вакансию", "Пожалуйста, выберите вакансию для удаления.");
@@ -158,7 +170,7 @@ public class VacancyListController {
     }
 
     @FXML
-    private void handleViewCandidates() {
+    private void handleViewCandidates() throws RemoteException {
         Vacancy selectedVacancy = vacancyTable.getSelectionModel().getSelectedItem();
 
         if (selectedVacancy == null) {
@@ -167,7 +179,7 @@ public class VacancyListController {
         }
 
         // Fetch the list of candidates for the selected vacancy
-        List<Candidate> candidates = CandidateRepo.getCandidatesByVacancyId(selectedVacancy.getId());
+        List<Candidate> candidates = ReposManager.getCandidateRepo().getCandidatesByVacancyId(selectedVacancy.getId());
 
         if (candidates.isEmpty()) {
             AlertUtils.showAlert("", "Для этой вакансии нет кандидатов.");

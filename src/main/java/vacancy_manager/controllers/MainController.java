@@ -72,7 +72,7 @@ public class MainController {
     }
 
     public static void showMainMenu(Stage stage) {
-
+        System.out.println("here we are");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("main_page.fxml"));
             MainController controller = new MainController(stage);

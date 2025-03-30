@@ -10,13 +10,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.controllers.MainController;
 import vacancy_manager.models.Manager;
-import vacancy_manager.repos.ManagerRepo;
 import vacancy_manager.utils.AlertUtils;
+
+import java.rmi.RemoteException;
 
 public class ManagerListController {
 
@@ -43,7 +44,7 @@ public class ManagerListController {
 
     private Stage stage;
 
-    public void initialize() {
+    public void initialize() throws RemoteException {
 
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -51,7 +52,7 @@ public class ManagerListController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        managerList = FXCollections.observableArrayList(ManagerRepo.getAll());
+        managerList = FXCollections.observableArrayList(ReposManager.getManagerRepo().getAll());
         managerTable.setItems(managerList);
 
     }
@@ -131,10 +132,10 @@ public class ManagerListController {
     }
 
     @FXML
-    private void handleDeleteManager() {
+    private void handleDeleteManager() throws RemoteException {
         Manager selectedManager = managerTable.getSelectionModel().getSelectedItem();
         if (selectedManager != null) {
-            ManagerRepo.deleteManager(selectedManager.getId());
+            repos.ReposManager.getManagerRepo().deleteManager(selectedManager.getId());
             managerList.remove(selectedManager);
         } else {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, выберите менеджера для удаления.");

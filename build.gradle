@@ -24,6 +24,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.withType(JavaExec) {
+    // Для RMI Security Manager
+    systemProperty 'java.security.policy', file('config/security.policy').absolutePath
+    systemProperty 'java.security.manager', 'java.lang.SecurityManager'
+}
+
 application {
     mainModule = 'vacancy_manager.controllers'
     mainClass = 'vacancy_manager.controllers.Main'
@@ -36,10 +42,10 @@ javafx {
 
 dependencies {
     implementation('org.controlsfx:controlsfx:11.2.1')
-    implementation('org.postgresql:postgresql:42.5.0')
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
+
 
 test {
     useJUnitPlatform()

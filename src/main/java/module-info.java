@@ -5,6 +5,7 @@ module vacancy_manager{
     requires org.controlsfx.controls;
     requires java.sql;
     requires java.desktop;
+    requires java.rmi;
 
     exports vacancy_manager.controllers;
     exports vacancy_manager.models;

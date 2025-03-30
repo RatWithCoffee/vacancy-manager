@@ -5,10 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.models.Manager;
 import vacancy_manager.models.Vacancy;
-import vacancy_manager.repos.VacancyRepo;
 import vacancy_manager.utils.AlertUtils;
+
+import java.rmi.RemoteException;
 
 public class EditVacancyController implements ManageSelector {
 
@@ -75,10 +77,12 @@ public class EditVacancyController implements ManageSelector {
             vacancy.setManagerName(manager);
             vacancy.setManagerId(managerId);
             vacanciesController.updateVacancyInTable(vacancy);
-            VacancyRepo.updateVacancy(vacancy);
+            ReposManager.getVacancyRepo().updateVacancy(vacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, введите корректную зарплату.");
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 

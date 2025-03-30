@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.models.Candidate;
 import vacancy_manager.models.Vacancy;
-import vacancy_manager.repos.CandidateRepo;
 import vacancy_manager.utils.AlertUtils;
 
 import java.io.BufferedReader;
@@ -51,7 +51,7 @@ public class CandidateListController {
         if (file != null) {
             try {
                 List<Candidate> importedCandidates = parseCsvFile(file);
-                int addedCandidatesBatch = CandidateRepo.addCandidatesBatch(importedCandidates, vacancyId );
+                int addedCandidatesBatch = ReposManager.getCandidateRepo().addCandidatesBatch(importedCandidates, vacancyId );
                 if (addedCandidatesBatch == importedCandidates.size()) {
                     candidateTable.getItems().addAll(importedCandidates);
                     AlertUtils.showAlert("Импорт завершен",

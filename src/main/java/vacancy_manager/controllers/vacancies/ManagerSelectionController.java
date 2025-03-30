@@ -3,10 +3,11 @@ package vacancy_manager.controllers.vacancies;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import repos.ReposManager;
 import vacancy_manager.models.Manager;
-import vacancy_manager.repos.ManagerRepo;
 import vacancy_manager.utils.AlertUtils;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class ManagerSelectionController {
@@ -27,7 +28,12 @@ public class ManagerSelectionController {
 
     @FXML
     private void initialize() {
-        List<Manager> managers = ManagerRepo.getAll();
+        List<Manager> managers = null;
+        try {
+            managers = ReposManager.getManagerRepo().getAll();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
         managerListView.getItems().setAll(managers);
     }
 

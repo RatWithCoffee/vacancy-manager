@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import vacancy_manager.repos.ReposManager;
+import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Manager;
 import vacancy_manager.models.Vacancy;
 import vacancy_manager.utils.AlertUtils;
@@ -51,6 +51,10 @@ public class EditVacancyController implements ManageSelector {
         descriptionArea.setText(vacancy.getDescription());
         salaryField.setText(String.valueOf(vacancy.getSalary()));
         managerField.setText(vacancy.getManagerName());
+        managerId = vacancy.getManagerId();
+
+        selectManagerButton.setVisible(false);
+        managerField.setVisible(false);
     }
 
     public void setVacanciesController(VacancyListController vacanciesController) {
@@ -77,6 +81,7 @@ public class EditVacancyController implements ManageSelector {
             vacancy.setManagerName(manager);
             vacancy.setManagerId(managerId);
             vacanciesController.updateVacancyInTable(vacancy);
+            System.out.println(vacancy);
             ReposManager.getVacancyRepo().updateVacancy(vacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {

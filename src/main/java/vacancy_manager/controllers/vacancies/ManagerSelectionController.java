@@ -3,7 +3,7 @@ package vacancy_manager.controllers.vacancies;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import vacancy_manager.repos.ReposManager;
+import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Manager;
 import vacancy_manager.utils.AlertUtils;
 

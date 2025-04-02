@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import vacancy_manager.repos.ReposManager;
+import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Manager;
 import vacancy_manager.utils.AlertUtils;
 
@@ -28,6 +28,7 @@ public class EditManagerController {
     @FXML
     private Button saveButton;
 
+
     @FXML
     private Button cancelButton;
 
@@ -47,6 +48,7 @@ public class EditManagerController {
         patronymicField.setText(manager.getPatronymic());
         emailField.setText(manager.getEmail());
         phoneField.setText(manager.getPhone());
+
     }
 
     public void setManagerListController(ManagerListController managerListController) {

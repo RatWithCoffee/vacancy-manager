@@ -14,6 +14,8 @@ public interface VacancyRepo extends Remote {
     List<Vacancy> getAllVacancies() throws RemoteException;
 
 
+    List<Vacancy> getVacanciesByManager(int managerId) throws RemoteException;
+
     // Method to add a new vacancy and return its ID
     int addVacancy(Vacancy vacancy) throws RemoteException;
 

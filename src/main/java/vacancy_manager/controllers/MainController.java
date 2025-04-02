@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import vacancy_manager.controllers.managers.ManagerListController;
 import vacancy_manager.controllers.vacancies.VacancyListController;
+import vacancy_manager.storage.UserStorage;
 
 import java.io.IOException;
 
@@ -15,8 +17,18 @@ public class MainController {
 
     private Stage stage;
 
+    @FXML
+    private Button managerButton;
+
     public MainController(Stage stage) {
         this.stage = stage;
+    }
+
+    @FXML
+    public void initialize() {
+        if (!UserStorage.getUser().isAdmin()) {
+            managerButton.setVisible(false);
+        }
     }
 
     @FXML
@@ -71,8 +83,14 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleExitButton(ActionEvent event) {
+        UserStorage.deleteUser();
+        LoginController loginController = new LoginController(stage);
+        loginController.showLoginPage();
+    }
+
     public static void showMainMenu(Stage stage) {
-        System.out.println("here we are");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("main_page.fxml"));
             MainController controller = new MainController(stage);

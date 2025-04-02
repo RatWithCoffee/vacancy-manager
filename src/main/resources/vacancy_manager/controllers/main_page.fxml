@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" spacing="20" alignment="CENTER">
     <Button text="Вакансии" onAction="#handleVacanciesButton" prefWidth="200"/>
-    <Button text="Менеджеры" onAction="#handleManagersButton" prefWidth="200"/>
+    <Button fx:id="managerButton" text="Менеджеры" onAction="#handleManagersButton" prefWidth="200"/>
     <Button text="Статистика" onAction="#handleStatisticsButton" prefWidth="200"/>
+    <Button text="Выйти" onAction="#handleExitButton" prefWidth="200"/>
 </VBox>

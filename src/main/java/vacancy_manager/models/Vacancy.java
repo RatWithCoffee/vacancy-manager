@@ -1,135 +1,86 @@
 package vacancy_manager.models;
 
-import javafx.beans.property.*;
-import java.io.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 public class Vacancy implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
-
-    // Transient properties (не сериализуются напрямую)
-    private transient IntegerProperty id;
-    private transient StringProperty title;
-    private transient StringProperty description;
-    private transient DoubleProperty salary;
-    private transient StringProperty managerName;
+    private int id;
+    private String title;
+    private String description;
+    private double salary;
+    private String managerName;
     private Integer managerId;
 
-    public Vacancy() {
-        initProperties();
+    public Vacancy(int id, String title, String description, double salary, Integer managerId, String managerName) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.salary = salary;
+        this.managerId = managerId;
+        this.managerName = managerName;
     }
 
-    public Vacancy(int id, String title, String description,
-                   double salary, int managerId, String name) {
-        initProperties();
-        setId(id);
-        setTitle(title);
-        setDescription(description);
-        setSalary(salary);
-        setManagerId(managerId);
-        setManagerName(name);
-    }
-
-    // Инициализация свойств
-    private void initProperties() {
-        this.id = new SimpleIntegerProperty();
-        this.title = new SimpleStringProperty();
-        this.description = new SimpleStringProperty();
-        this.salary = new SimpleDoubleProperty();
-        this.managerName = new SimpleStringProperty();
-    }
-
-    // Кастомная сериализация
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeInt(getId());
-        out.writeUTF(getTitle());
-        out.writeUTF(getDescription());
-        out.writeDouble(getSalary());
-        out.writeInt(getManagerId());
-        out.writeUTF(getManagerName());
-    }
-
-    // Кастомная десериализация
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        initProperties();
-        setId(in.readInt());
-        setTitle(in.readUTF());
-        setDescription(in.readUTF());
-        setSalary(in.readDouble());
-        setManagerId(in.readInt());
-        setManagerName(in.readUTF());
-    }
-
-    // Геттеры и сеттеры
+    // Геттеры
     public int getId() {
-        return id.get();
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
-    }
-
-    public IntegerProperty idProperty() {
         return id;
     }
 
     public String getTitle() {
-        return title.get();
-    }
-
-    public void setTitle(String title) {
-        this.title.set(title);
-    }
-
-    public StringProperty titleProperty() {
         return title;
     }
 
     public String getDescription() {
-        return description.get();
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
-
-    public StringProperty descriptionProperty() {
         return description;
     }
 
     public double getSalary() {
-        return salary.get();
-    }
-
-    public void setSalary(double salary) {
-        this.salary.set(salary);
-    }
-
-    public DoubleProperty salaryProperty() {
         return salary;
+    }
+
+    public String getManagerName() {
+        return managerName;
     }
 
     public Integer getManagerId() {
         return managerId;
     }
 
+    // Сеттеры
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
 
-    public String getManagerName() {
-        return managerName.get();
-    }
-
-    public void setManagerName(String managerName) {
-        this.managerName.set(managerName);
-    }
-
-    public StringProperty managerNameProperty() {
-        return managerName;
-    }
-
     @Override
     public String toString() {
-        return getTitle() + " (ID: " + getId() + ")";
+        return "Vacancy{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", salary=" + salary +
+                ", managerName='" + managerName + '\'' +
+                ", managerId=" + managerId +
+                '}';
     }
 }

@@ -12,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import vacancy_manager.repos.ReposManager;
+import vacancy_manager.managers.ReposManager;
 import vacancy_manager.controllers.MainController;
 import vacancy_manager.models.Manager;
 import vacancy_manager.utils.AlertUtils;
@@ -135,7 +135,7 @@ public class ManagerListController {
     private void handleDeleteManager() throws RemoteException {
         Manager selectedManager = managerTable.getSelectionModel().getSelectedItem();
         if (selectedManager != null) {
-            vacancy_manager.repos.ReposManager.getManagerRepo().deleteManager(selectedManager.getId());
+            ReposManager.getManagerRepo().deleteManager(selectedManager.getId());
             managerList.remove(selectedManager);
         } else {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, выберите менеджера для удаления.");

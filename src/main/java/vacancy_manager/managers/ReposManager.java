@@ -1,6 +1,7 @@
-package vacancy_manager.repos;
+package vacancy_manager.managers;
 
 import vacancy_manager.rmi_interfaces.CandidateRepo;
+import vacancy_manager.rmi_interfaces.LoginRepo;
 import vacancy_manager.rmi_interfaces.ManagerRepo;
 import vacancy_manager.rmi_interfaces.VacancyRepo;
 
@@ -14,6 +15,7 @@ public class ReposManager {
     private static VacancyRepo vacancyRepo;
     private static ManagerRepo managerRepo;
     private static CandidateRepo candidateRepo;
+    private static LoginRepo loginRepo;
 
     public static void getRegistry() {
         try {
@@ -21,6 +23,8 @@ public class ReposManager {
             vacancyRepo = (VacancyRepo) registry.lookup("VacancyRepo");
             managerRepo = (ManagerRepo) registry.lookup("ManagerRepo");
             candidateRepo = (CandidateRepo) registry.lookup("CandidateRepo");
+            loginRepo = (LoginRepo) registry.lookup("LoginRepo");
+
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {
@@ -49,5 +53,12 @@ public class ReposManager {
             getRegistry();
         }
         return candidateRepo;
+    }
+
+    public static LoginRepo getLoginRepo() {
+        if (loginRepo == null) {
+            getRegistry();
+        }
+        return loginRepo;
     }
 }

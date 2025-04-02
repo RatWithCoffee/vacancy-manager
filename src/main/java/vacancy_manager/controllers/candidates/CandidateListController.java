@@ -3,7 +3,7 @@ package vacancy_manager.controllers.candidates;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import vacancy_manager.repos.ReposManager;
+import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Candidate;
 import vacancy_manager.models.Vacancy;
 import vacancy_manager.utils.AlertUtils;

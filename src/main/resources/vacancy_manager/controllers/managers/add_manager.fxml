@@ -19,7 +19,13 @@
     <Label text="Телефон" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
     <TextField fx:id="phoneField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-    <Button text="Сохранить" onAction="#handleSave" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-    <Button text="Отменить" onAction="#handleCancel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    <Label text="Логин" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="loginField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <Label text="Пароль" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <TextField fx:id="passField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+    <Button text="Сохранить" onAction="#handleSave" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <Button text="Отменить" onAction="#handleCancel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 </GridPane>
 

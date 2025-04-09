@@ -7,10 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Manager;
+import vacancy_manager.models.User;
 import vacancy_manager.models.Vacancy;
+import vacancy_manager.storage.UserStorage;
 import vacancy_manager.utils.AlertUtils;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class EditVacancyController implements ManageSelector {
 
@@ -41,6 +44,16 @@ public class EditVacancyController implements ManageSelector {
 
     private VacancyListController vacanciesController;
 
+
+    @FXML
+    private void initialize() {
+        User user = UserStorage.getUser();
+        if (!user.isAdmin()) {
+            selectManagerButton.setVisible(false);
+            managerField.setVisible(false);
+        }
+    }
+
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
@@ -52,9 +65,6 @@ public class EditVacancyController implements ManageSelector {
         salaryField.setText(String.valueOf(vacancy.getSalary()));
         managerField.setText(vacancy.getManagerName());
         managerId = vacancy.getManagerId();
-
-        selectManagerButton.setVisible(false);
-        managerField.setVisible(false);
     }
 
     public void setVacanciesController(VacancyListController vacanciesController) {
@@ -81,7 +91,6 @@ public class EditVacancyController implements ManageSelector {
             vacancy.setManagerName(manager);
             vacancy.setManagerId(managerId);
             vacanciesController.updateVacancyInTable(vacancy);
-            System.out.println(vacancy);
             ReposManager.getVacancyRepo().updateVacancy(vacancy);
             dialogStage.close();
         } catch (NumberFormatException e) {

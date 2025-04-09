@@ -10,6 +10,8 @@ import vacancy_manager.utils.AlertUtils;
 
 public class EditManagerController {
 
+    public TextField loginField;
+    public TextField passField;
     @FXML
     private TextField firstNameField;
 
@@ -63,8 +65,13 @@ public class EditManagerController {
         String email = emailField.getText();
         String phone = phoneField.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || patronymic.isEmpty() || email.isEmpty()) {
-            AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все обязательные поля.");
+        String login = loginField.getText();
+        String pass = passField.getText();
+
+        // Проверяем, что все поля заполнены
+        if (firstName.isEmpty() || lastName.isEmpty() || patronymic.isEmpty() || email.isEmpty() || phone.isEmpty()
+                || login.isEmpty() || pass.isEmpty()) {
+            AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все поля.");
             return;
         }
 
@@ -74,6 +81,8 @@ public class EditManagerController {
             manager.setPatronymic(patronymic);
             manager.setEmail(email);
             manager.setPhone(phone);
+            manager.setPassword(pass);
+            manager.setLogin(login);
 
             managerListController.updateManagerInTable(manager);
             ReposManager.getManagerRepo().updateManager(manager);

@@ -184,11 +184,6 @@ public class VacancyListController {
         // Fetch the list of candidates for the selected vacancy
         List<Candidate> candidates = ReposManager.getCandidateRepo().getCandidatesByVacancyId(selectedVacancy.getId());
 
-        if (candidates.isEmpty()) {
-            AlertUtils.showAlert("", "Для этой вакансии нет кандидатов.");
-            return;
-        }
-
         // Open a new window showing the list of candidates
         showCandidatesWindow(candidates, selectedVacancy);
     }

@@ -11,6 +11,8 @@ import java.rmi.RemoteException;
 
 public class AddManagerController {
 
+    public TextField loginField;
+    public TextField passField;
     @FXML
     private TextField firstNameField;
 
@@ -45,15 +47,18 @@ public class AddManagerController {
         String patronymic = patronymicField.getText();
         String email = emailField.getText();
         String phone = phoneField.getText();
+        String login = loginField.getText();
+        String pass = passField.getText();
 
         // Проверяем, что все поля заполнены
-        if (firstName.isEmpty() || lastName.isEmpty() || patronymic.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || patronymic.isEmpty() || email.isEmpty() || phone.isEmpty()
+                || login.isEmpty() || pass.isEmpty()) {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все поля.");
             return;
         }
 
         // Создаем нового менеджера и добавляем его в репозиторий
-        Manager newManager = new Manager(-1, firstName, lastName, patronymic, email, phone);
+        Manager newManager = new Manager(-1, firstName, lastName, patronymic, email, phone, login, pass);
         int id = 0;
         try {
             id = ReposManager.getManagerRepo().addManager(newManager);

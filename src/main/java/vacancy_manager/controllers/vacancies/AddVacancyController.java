@@ -7,7 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vacancy_manager.managers.ReposManager;
 import vacancy_manager.models.Manager;
+import vacancy_manager.models.User;
 import vacancy_manager.models.Vacancy;
+import vacancy_manager.storage.UserStorage;
 import vacancy_manager.utils.AlertUtils;
 
 import java.rmi.RemoteException;
@@ -39,6 +41,7 @@ public class AddVacancyController implements ManageSelector {
     private Button selectManagerButton;
     private Stage dialogStage;
 
+    private User user;
     private VacancyListController vacancyListController;
 
     public void setDialogStage(Stage dialogStage) {
@@ -47,6 +50,17 @@ public class AddVacancyController implements ManageSelector {
 
     public void setVacanciesController(VacancyListController vacancyControllerListController) {
         this.vacancyListController = vacancyControllerListController;
+
+
+    }
+
+    @FXML
+    private void initialize() {
+        user = UserStorage.getUser();
+        if (!user.isAdmin()) {
+            selectManagerButton.setVisible(false);
+            managerField.setVisible(false);
+        }
     }
 
 
@@ -57,10 +71,22 @@ public class AddVacancyController implements ManageSelector {
         String salaryText = salaryField.getText();
         String managerName = managerField.getText();
 
-        if (title.isEmpty() || description.isEmpty() || salaryText.isEmpty() || managerName.isEmpty()) {
+        if (title.isEmpty() || description.isEmpty() || salaryText.isEmpty()) {
             AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все поля.");
             return;
         }
+
+        if (user.isAdmin()) {
+            if (managerName.isEmpty()) {
+                AlertUtils.showAlert("Ошибка", "Пожалуйста, заполните все поля.");
+                return;
+            }
+        } else {
+            managerId = user.getId();
+            Manager manager = (Manager) user;
+            managerName = manager.getFirstName() + " " + manager.getLastName();
+        }
+
 
         try {
             double salary = Double.parseDouble(salaryText);

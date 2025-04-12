@@ -27,7 +27,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'vacancy_manager.controllers'
-    mainClass = 'vacancy_manager.controllers.Main'
+    mainClass = 'vacancy_manager.Main'
 }
 
 javafx {
@@ -45,11 +45,51 @@ test {
     useJUnitPlatform()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['--module-path', classpath.asPath]
+}
+
+
 jlink {
     imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+
     launcher {
-        name = 'app'
+        name = 'VacancyManager'
+        jvmArgs = [
+                '-Dfile.encoding=UTF-8',
+                '-Xmx512m',
+                '--add-reads', 'vacancy_manager=ALL-UNNAMED',
+        ]
+    }
+
+    // Явное указание сервисов для слияния
+    forceMerge 'postgresql'
+
+    // Упрощенная конфигурация merged модуля
+    mergedModule {
+        // Убраны дублирующиеся requires
+        additive = true
+    }
+
+    jpackage {
+        if (org.gradle.internal.os.OperatingSystem.current().windows) {
+            installerType = 'msi'
+            installerOptions = [
+                    '--copyright', 'Copyright 2024',
+                    '--win-menu',
+                    '--win-shortcut'
+            ]
+        } else if (org.gradle.internal.os.OperatingSystem.current().linux) {
+            installerType = 'rpm'  // For Fedora/RHEL/CentOS
+            // installerType = 'deb'  // For Debian/Ubuntu
+            installerOptions = [
+                    '--copyright', 'Copyright 2024',
+                    '--linux-shortcut'  // Adds a desktop shortcut
+            ]
+        }
+        installerOptions += ['--app-version', version]
     }
 }
 
